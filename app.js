@@ -10,7 +10,7 @@ const io = socketHandler.init(server);
 // Require the route files
 const apiRoutes = require('./routes/apiRoutes');
 const webRoutes = require('./routes/webRoutes');
-const apiTokenValidation = require('./middelwares/apiTokenValidation');
+const apiTokenValidation = require('./middlewares/apiTokenValidation');
 const tokenizedRoutes = require("./routes/tokenizedRoutes");
 const generateAPIResponse = require('./helpers/responseHelper');
 
