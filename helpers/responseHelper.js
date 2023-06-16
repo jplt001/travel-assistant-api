@@ -3,7 +3,7 @@ const generateAPIResponse = (statusCode, message, data = null) => {
         return {
             statusCode,
             message,
-            errors: data
+            errors: (typeof data == "object" || data instanceof Array) ? [...data] : data
         };
     } else {
         return {

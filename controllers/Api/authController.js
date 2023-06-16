@@ -1,5 +1,6 @@
 const passport = require('passport');
 const jwt = require("jsonwebtoken");
+const responseHelper = require("../../helpers/responseHelper");
 
 exports.register = async (request, response) => {
 
@@ -17,7 +18,6 @@ exports.login = async (req, res, next) => {
         'login',
         async (err, user, info) => {
             try {
-                console.log(err, user, info);
                 if (err || !user) {
                     const error = new Error('An error occurred.');
 
@@ -32,11 +32,12 @@ exports.login = async (req, res, next) => {
 
                         const body = { _id: user._id, email: user.email };
                         const token = jwt.sign({ user: body }, process.env.TOKEN_SECRET || "64bdb66a");
-
-                        return res.json({ token });
+                        delete user['password'];
+                        const responseBody = { ...user, token};
+                        return res.json(responseHelper(201, (typeof info.message != "undefined") ? info.message: "Successfuly Logged In", responseBody));
                     }
                 );
-                res.json({ code: 201}).status(201);
+                // res.json({ code: 201}).status(201);
             } catch (error) {
                 return next(error);
             }
