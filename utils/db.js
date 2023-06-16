@@ -2,9 +2,9 @@ const { MongoClient } = require('mongodb');
 
 let dbClient;
 
-const connectionString = process.env.ATLAS_URI || "mongodb+srv://josepinodeveloper001:64bdb66a@itrakdb.r6ae7lk.mongodb.net/";
+const connectionString = process.env.ATLAS_URI || "mongodb+srv://travelassi-main-db-04f086f0166:aenwyxywwhkP8SJJCtkcuH6cWAz7gT@prod-us-central1-2.ih9la.mongodb.net/travelassi-main-db-04f086f0166";
 
-const dbName = 'itrakdb';
+const dbName = 'travelassi-main-db-04f086f0166';
 // Connect to the MongoDB server and return the database client
 const connect = async () => {
     try {

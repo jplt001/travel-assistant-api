@@ -1,17 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const apiController = require('../controllers/apiController');
-const authController = require("../controllers/authController");
-
+const authController = require("../controllers/Api/authController");
+const trackController = require("../controllers/Api/trackController");
 const StoreLoginRequest = require("../requests/StoreLoginRequest");
-// Protected API route
-router.get('/protected-route', apiController.protectedRoute);
+const StoreRegisterRequest = require("../requests/Auth/StoreRegisterRequest");
+let passport = require("passport");
+const Auth = passport.authenticate('jwt', { session: false });
+require("../passports/auth");
 
-// Another protected API route
-router.get('/another-protected-route', apiController.anotherProtectedRoute);
+router.post("/auth/login", authController.login);
 
-router.get('/unprotected-route', apiController.unprotectedRoute);
+router.post("/auth/register", passport.authenticate('register', { session: false}), authController.register);
 
-router.post("/auth/login", StoreLoginRequest, authController.login);
+router.get("/auth/me", Auth, authController.me);
+
+router.post("/track", Auth, trackController.store);
 
 module.exports = router;

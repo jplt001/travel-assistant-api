@@ -4,6 +4,7 @@ const http = require("http");
 const app = express();
 const server = http.createServer(app);
 const socketHandler = require('./handlers/socketHandler');
+const cors = require("cors");
 require("dotenv").config();
 
 const io = socketHandler.init(server);
@@ -13,10 +14,11 @@ const webRoutes = require('./routes/webRoutes');
 const apiTokenValidation = require('./middlewares/apiTokenValidation');
 const tokenizedRoutes = require("./routes/tokenizedRoutes");
 const generateAPIResponse = require('./helpers/responseHelper');
-
+const bodyParser = require("body-parser");
 app.locals.generateAPIResponse = generateAPIResponse;
 
-app.use(express.json());
+app.use(cors());
+app.use(bodyParser.json());
 // Apply middleware to specific routes
 app.use(apiTokenValidation(tokenizedRoutes))
 app.use('/api', apiRoutes); // Prefix all API routes with '/api'
