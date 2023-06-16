@@ -15,22 +15,21 @@ passport.use(
         },
         async (email, password, done) => {
             try {
-                // const database = await db.connect();
-                // const collection = database.collection("users");
+                const database = await db.connect();
+                const collection = database.collection("users");
 
-                // let query = { email };
+                let query = { email };
 
-                // const user = await collection.findOne(query);
+                const user = await collection.findOne(query);
                 
-                // if (!user) {
-                //     return done(null, false, { message: 'User not found' });
-                // }
+                if (!user) {
+                    return done(null, false, { message: 'User not found' });
+                }
 
-                // if (!(await Hash.validate(password, user.password))) {
-                //     return done(null, false, { message: "Unauthorized Login"});
-                // }
-                // // db.close();
-                let user = {email, passport};
+                if (!(await Hash.validate(password, user.password))) {
+                    return done(null, false, { message: "Unauthorized Login"});
+                }
+                
                 return done(null, user, { message: 'Logged in Successfully' });
             } catch (error) {
                 return done(error);
