@@ -24,7 +24,7 @@ function htmlError(...args) {
 }
 
 module.exports = function(error, req, res, next) {
-    const contentType = req.is("application/json") ? 'html' : 'html';
+    const contentType = req.is("application/json") ? 'json' : 'html';
     const statusCode = (req.statusCode != null && req.statusCode !== 200 ) ? req.statusCode : 500;
     
     if(contentType == "json") {
